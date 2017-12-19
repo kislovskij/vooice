@@ -11,7 +11,7 @@ import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
 import ChevronRightIcon from 'material-ui-icons/ChevronRight';
 import IconButton from 'material-ui/IconButton';
 
-import ServerList from './ServerList';
+import ServerList from '../containers/ServerList';
 
 const drawerWidth = 240;
 

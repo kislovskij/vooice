@@ -7,40 +7,36 @@ import classNames from 'classnames';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import FolderIcon from 'material-ui-icons/Folder';
-import AddIcon from 'material-ui-icons/Add';
+
+import ServerListItem from './ServerListItem';
+import AddServer from './AddServer';
 
 const styles = theme => ({
 })
 
 class ServerList extends Component {
-  render() {
+  props: {
+    servers: array,
+    addServer: () => void
+  };
 
+  constructor(props) {
+    super(props);
+
+    this.handleAddServer = this.handleAddServer.bind(this);
+  }
+
+  handleAddServer() {
+    this.props.addServer({ address: 'localhost:1234' })
+  };
+
+  render() {
     return (
       <List>
-        <ListItem button>
-          <Avatar>
-            <FolderIcon />
-          </Avatar>
-          <ListItemText primary="Münchhausen" secondary="voice.kislovskij.com" />
-        </ListItem>
-        <ListItem button>
-          <Avatar>
-            <FolderIcon />
-          </Avatar>
-          <ListItemText primary="Münchhausen" secondary="5.138.24.17" />
-        </ListItem>
-        <ListItem button>
-          <Avatar>
-            <FolderIcon />
-          </Avatar>
-          <ListItemText primary="Münchhausen" secondary="lobby.voice.com" />
-        </ListItem>
-        <ListItem button>
-          <Avatar>
-            <AddIcon />
-          </Avatar>
-          <ListItemText />
-        </ListItem>
+        {this.props.servers.map(server => (
+          <ServerListItem key={server.id} {...server} />
+        ))}
+        <AddServer onAddServer={this.handleAddServer} />
       </List>
     );
   }

@@ -1,47 +1,51 @@
 // @flow
-import { ADD_MESSAGE, SEND_MESSAGE } from '../actions/messages';
-
-export type messagesStateType = {
-  +counter: number
-};
+import { ADD_MESSAGE, RECEIVE_MESSAGE, LOAD_MESSAGES, LOAD_MESSAGES_SUCCESS, LOAD_MESSAGES_FAIL, AUTH_SIGNOUT_SUCCESS} from '../actions/messages';
 
 type actionType = {
   +type: string
 };
 
-const message = (state, action) => {
+const initialState = {
+  loaded: false,
+  data: [],
+  fetchHistory: []
+};
+
+export default function messages(state = initialState, action: actionType) {
   switch (action.type) {
-    case ADD_MESSAGE:
-      return {
-        id: action.id,
-        text: action.text,
-        time: action.time,
-        author: action.author
-      }
-    default:
-      return state;
+  case ADD_MESSAGE:
+    return {...state,
+      data: [...state.data, action.message]
+    };
+  case RECEIVE_MESSAGE:
+    return {...state,
+      data: [...state.data, action.message]
+    };
+  case LOAD_MESSAGES:
+    return {...state,
+      loading: true
+    };
+  case LOAD_MESSAGES_SUCCESS:
+    return {...state,
+      loading: false,
+      loaded: true,
+      fetchHistory: [...state.fetchHistory, { lastFetch: action.date, channelName: action.channel }],
+      data: [...state.data.filter(message => message.channelId !== action.channel), ...action.json]
+    };
+  case LOAD_MESSAGES_FAIL:
+    return {...state,
+      loading: false,
+      loaded: false,
+      error: action.error,
+      data: [...state.data]
+    };
+  case AUTH_SIGNOUT_SUCCESS:
+    return {
+      loaded: false,
+      data: [],
+      fetchHistory: []
+    };
+  default:
+    return state;
   }
 }
-
-const messages = (state = [], action) => {
-  switch (action.type) {
-    case ADD_MESSAGE:
-      if (state.map(m => m.id).includes(action.id)) {
-        return state
-      } else {
-        return [
-          ...state,
-          message(undefined, action)
-        ];
-      }
-    case SEND_MESSAGE:
-      return [
-        ...state,
-        message(undefined, action)
-      ];
-    default:
-      return state;
-  }
-}
-
-export default messages
