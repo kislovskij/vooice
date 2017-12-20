@@ -34,7 +34,7 @@ export function changeChannel(channel) {
   };
 }
 
-export fetchChannels(user) {
+export function fetchChannels(user) {
   return dispatch => {
     dispatch(requestChannels())
     return retch(`/api/channels/`)
@@ -50,7 +50,7 @@ function requestChannels() {
   };
 }
 
-export receiveChannels(json) {
+export function receiveChannels(json) {
   return {
     type: LOAD_CHANNELS_SUCCESS,
     json

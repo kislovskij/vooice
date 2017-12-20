@@ -1,6 +1,5 @@
 // @flow
 const uuidv4 = require('uuid/v4');
-import type { serversStateType } from '../reducers/servers';
 
 type actionType = {
   +type: string

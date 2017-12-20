@@ -9,24 +9,39 @@ import Avatar from 'material-ui/Avatar';
 import { CircularProgress } from 'material-ui/Progress';
 
 const styles = theme => ({
+  active: {
+    background: theme.palette.primary[500]
+  }
 })
 
 class ServerListItem extends Component {
   props: {
+    id: string,
     address: string,
-    connecting: boolean
+    active: boolean,
+    connecting: boolean,
+    onActivate: () => void
   };
 
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.props.onActivate(this.props.id);
+  }
+
   render() {
-    const { classes, address, connecting } = this.props;
+    const { classes, address, connecting, active } = this.props;
 
     return (
-      <ListItem button>
-        <Avatar>
+      <ListItem className={active && classes.active} button onClick={this.handleClick}>
+        <Avatar className={classes.icon}>
           { connecting && <CircularProgress className={classes.progress} color="primary" /> }
           { !connecting && <span>VK</span> }
         </Avatar>
-        <ListItemText primary={ connecting ? 'Connecting…' : 'Connected' } secondary={address} />
+        <ListItemText classes={{ text: classes.text }} primary={ connecting ? 'Connecting…' : 'Connected' } secondary={address} />
       </ListItem>
     );
   }

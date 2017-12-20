@@ -16,27 +16,33 @@ const styles = theme => ({
 
 class ServerList extends Component {
   props: {
-    servers: Array,
+    server: Object,
+    setActiveServer: (id) => void,
     addServer: () => void,
     connectServer: () => void
   };
 
   constructor(props) {
     super(props);
-
     this.handleAddServer = this.handleAddServer.bind(this);
+    this.handleSetActiveServer = this.handleSetActiveServer.bind(this);
   }
 
   handleAddServer() {
     const { id } = this.props.addServer({ address: '127.0.0.1:3000' });
+    this.handleSetActiveServer(id);
+  }
+
+  handleSetActiveServer(id) {
+    this.props.setActiveServer(id);
     this.props.connectServer(id);
-  };
+  }
 
   render() {
     return (
       <List>
-        {this.props.servers.map(server => (
-          <ServerListItem key={server.id} {...server} />
+        {this.props.server.servers.map(server => (
+          <ServerListItem key={server.id} active={this.props.server.activeServer.id === server.id} onActivate={this.handleSetActiveServer} {...server} />
         ))}
         <AddServer onAddServer={this.handleAddServer} />
       </List>

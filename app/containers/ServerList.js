@@ -1,11 +1,11 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ServerList from '../components/ServerList';
-import * as ServerActions from '../actions/servers';
+import * as ServerActions from '../actions/server';
 
 function mapStateToProps(state) {
   return {
-    servers: state.servers
+    server: state.server
   };
 }
 
