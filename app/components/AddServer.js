@@ -24,6 +24,11 @@ export default class AddServer extends Component {
     this.setState({ open: false });
   };
 
+  handleAddServer = () => {
+    this.props.onAddServer();
+    this.handleClose();
+  }
+
   render() {
     const { open } = this.state;
 
@@ -52,7 +57,7 @@ export default class AddServer extends Component {
             <Button onClick={this.handleClose}>
               Cancel
             </Button>
-            <Button onClick={this.props.onAddServer} color="primary">
+            <Button onClick={this.handleAddServer} color="primary">
               OK
             </Button>
           </DialogActions>

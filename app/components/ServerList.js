@@ -16,8 +16,9 @@ const styles = theme => ({
 
 class ServerList extends Component {
   props: {
-    servers: array,
-    addServer: () => void
+    servers: Array,
+    addServer: () => void,
+    connectServer: () => void
   };
 
   constructor(props) {
@@ -27,7 +28,8 @@ class ServerList extends Component {
   }
 
   handleAddServer() {
-    this.props.addServer({ address: 'localhost:1234' })
+    const { id } = this.props.addServer({ address: '127.0.0.1:3000' });
+    this.props.connectServer(id);
   };
 
   render() {

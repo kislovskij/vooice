@@ -205,11 +205,16 @@
     "redux-thunk": "^2.2.0",
     "simple-peer": "^8.2.0",
     "source-map-support": "^0.4.15",
-    "typeface-roboto": "0.0.45"
+    "typeface-roboto": "0.0.45",
+    "ws": "^3.3.3"
   },
   "devEngines": {
     "node": ">=7.x",
     "npm": ">=4.x",
     "yarn": ">=0.21.3"
+  },
+  "optionalDependencies": {
+    "bufferutil": "^3.0.3",
+    "utf-8-validate": "^4.0.0"
   }
 }

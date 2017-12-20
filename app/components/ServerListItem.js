@@ -6,23 +6,27 @@ import classNames from 'classnames';
 
 import { ListItem, ListItemText } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
-import FolderIcon from 'material-ui-icons/Folder';
+import { CircularProgress } from 'material-ui/Progress';
 
 const styles = theme => ({
 })
 
 class ServerListItem extends Component {
   props: {
-    address: string
+    address: string,
+    connecting: boolean
   };
 
   render() {
+    const { classes, address, connecting } = this.props;
+
     return (
       <ListItem button>
         <Avatar>
-          <FolderIcon />
+          { connecting && <CircularProgress className={classes.progress} color="primary" /> }
+          { !connecting && <span>VK</span> }
         </Avatar>
-        <ListItemText primary="Münchhausen" secondary="voice.kislovskij.com" />
+        <ListItemText primary={ connecting ? 'Connecting…' : 'Connected' } secondary={address} />
       </ListItem>
     );
   }

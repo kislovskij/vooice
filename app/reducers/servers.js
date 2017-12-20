@@ -2,7 +2,7 @@
 import { ADD_SERVER, CONNECT_SERVER, CONNECTION_READY } from '../actions/servers';
 
 export type serversStateType = {
-  +servers: array
+  +servers: Array
 };
 
 type actionType = {
@@ -15,7 +15,10 @@ export default function servers(state = [], action: actionType) {
       return [
         ...state,
         {
-          address: action.data.address
+          id: action.id,
+          address: action.address,
+          connected: false,
+          connecting: false
         }
       ]
     case CONNECT_SERVER:
